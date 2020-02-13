@@ -41,7 +41,7 @@ class AppendStringRange(argparse.Action):
             message = 'requires 2 arguments'
         else:
             # optional: likwid region(s) for which this variable is specified
-            m = re.match(r'(?:(?P<region>(\D\w*,)*\D\w*):)?' 
+            m = re.match(r'(?:(?P<region>(\D[^\s:]*,)*\D[^\s:]*):)?' 
                          r'(?:(?P<start_var>[0-9]*\.?[0-9]+(?:[eE][-+]?[0-9]+)?)?:?)'
                          r'(?:(?P<stop_var>[0-9]*\.?[0-9]+(?:[eE][-+]?[0-9]+)?)?\:?)?'
                          r'(?:(?P<scale_var>log|lin)?)?', values[1])
@@ -103,7 +103,7 @@ class AppendLoopRange(argparse.Action):
         message = ''
 
         # optional: likwid region(s) for which this loop range is specified
-        m = re.match(r'(?:(?P<region>(\D\w*,)*\D\w*):)?'
+        m = re.match(r'(?:(?P<region>(\D[^\s:]*,)*\D[^\s:]*):)?'
                      # lower bound of loop
                      r'(?P<start>\d+\.?\d*):'
                      # optional: step size
@@ -168,7 +168,7 @@ class AppendRepetitionDefines(argparse.Action):
             message = 'requires 1 argument'
         else:
             # optionally: likwid region(s) for which the number of repetitions is defined
-            m = re.match(r'(?:(?P<region>(\D\w*,)*\D\w*):)?'    
+            m = re.match(r'(?:(?P<region>(\D[^\s:]*,)*\D[^\s:]*):)?'    
                          # qualifier for the repetitions. Can either be a fixed number, a variable 
                          # name or the specifier 'marker'
                          r'(?P<qualifier>\w+)$',                
@@ -214,7 +214,7 @@ class AppendFlops(argparse.Action):
         if len(values) == 0:
             message = 'requires 1 argument'
         else:
-            m = re.match(r'(?:(?P<region>(\D\w*,)*\D\w*):)?(?P<flops>\d+)$',
+            m = re.match(r'(?:(?P<region>(\D[^\s:]*,)*\D[^\s:]*):)?(?P<flops>\d+)$',
                          values)
             if m:
                 gd = m.groupdict()
